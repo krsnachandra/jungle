@@ -10,6 +10,12 @@
 
   <div class="panel panel-default categories">
 
+    <% if notice %>
+      <div class="alert alert-success">
+        <%= notice %>
+      </div>
+    <% end %>
+
     <table class="table table-bordered">
       <tbody>
         <%= render @categories %>
