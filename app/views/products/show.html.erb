@@ -22,25 +22,47 @@
           <dd><%= @product.quantity %></dd>
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
+          <br>
+          <br>
+          <% if current_user %>
+            <dt>Rate and review</dt>
+              <%= form_for [@product, @review] do |f| %>
+                <dd>
+                  <div class="field">
+                    <%= f.label :rating %>
+                    <%= f.select :rating, [5, 4, 3, 2, 1] %>
+                  </div>
+                  <div class="field">
+                    <%= f.label :description %><br>
+                    <%= f.text_area :description, size: "50x3" %>
+                  </div>
+                  <div class="actions">
+                    <%= f.submit %>
+                  </div>
+                </dd>
+              <% end %>
+            <% end %>
           <dt>Reviews</dt>
           <dd>
-            <% @product.reviews.each do |review| %>
-              <tr>
-                <td class="rating">
-                  Rating: <%= review.rating %>
-                </td>
-              </tr>
-              <br>
-              <tr>
-                <td class="user">
-                  <%= review.user.first_name %> said:
-                </td>
-                <td class="description">
-                  "<%= review.description %>"
-                </td>
-              </tr>
-              <br>
-              <br>
+            <% @product.reviews.order("created_at DESC").each do |review| %>
+              <% if review.user %>
+                <tr>
+                  <td class="rating">
+                    Rating: <%= review.rating %>
+                  </td>
+                </tr>
+                <br>
+                <tr>
+                  <td class="user">
+                    <%= review.user.first_name %> said:
+                  </td>
+                  <td class="description">
+                    "<%= review.description %>"
+                  </td>
+                </tr>
+                <br>
+                <br>
+              <% end %>
             <% end %>
           </dd>
         </dl>
