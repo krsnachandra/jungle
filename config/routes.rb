@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
 
   post '/login' => 'sessions#create'
-  get '/logout' => 'sessions#destroy'
+  delete '/logout' => 'sessions#destroy'
 
   namespace :admin do
     root to: 'dashboard#show'
