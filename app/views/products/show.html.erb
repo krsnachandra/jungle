@@ -60,6 +60,10 @@
                     "<%= review.description %>"
                   </td>
                 </tr>
+                <% if review.user == current_user %>
+                  <br>
+                  <%= link_to 'Delete review', review, method: :delete, data: { confirm: 'Are you sure?' } %>
+                <% end %>
                 <br>
                 <br>
               <% end %>
